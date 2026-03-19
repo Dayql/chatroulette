@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatroulette</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══ ÉCRAN 1 : AUTH ═══ -->
+  <div id="auth-screen">
+    <h1>Chatroulette</h1>
+    <div id="auth-error" class="error-msg"></div>
+
+    <!-- Login -->
+    <div id="login-form">
+      <input type="email" id="login-email" placeholder="Email">
+      <input type="password" id="login-password" placeholder="Mot de passe">
+      <button id="login-btn" onclick="handleLogin()">Se connecter</button>
+      <div class="auth-toggle">
+        Pas de compte ? <a onclick="toggleAuth('signup')">S'inscrire</a>
+      </div>
+    </div>
+
+    <!-- Signup -->
+    <div id="signup-form" style="display:none">
+      <input type="text" id="signup-username" placeholder="Nom d'utilisateur">
+      <input type="email" id="signup-email" placeholder="Email">
+      <input type="password" id="signup-password" placeholder="Mot de passe (min. 6 caractères)">
+      <button id="signup-btn" onclick="handleSignup()">S'inscrire</button>
+      <div class="auth-toggle">
+        Déjà un compte ? <a onclick="toggleAuth('login')">Se connecter</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ÉCRAN 2 : CHATROULETTE ═══ -->
+  <div id="chat-screen">
+    <!-- Header -->
+    <div class="header">
+      <span class="logo">Chatroulette</span>
+      <div class="user-info">
+        <span class="username" id="display-username"></span>
+        <button class="btn-logout" onclick="handleLogout()">Déconnexion</button>
+      </div>
+    </div>
+
+    <!-- Bannière connexion perdue -->
+    <div class="connection-banner" id="connection-banner">
+      Connexion perdue, reconnexion en cours...
+    </div>
+
+    <!-- Zone principale -->
+    <div class="main">
+      <!-- Status -->
+      <div class="status" id="status-zone">
+        <h2 id="status-title">Prêt à discuter ?</h2>
+        <p id="status-subtitle">Trouvez un partenaire aléatoire</p>
+        <div class="spinner" id="spinner" style="display:none"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions" id="actions-zone">
+        <button class="btn btn-primary" id="btn-find" onclick="findPartner()">
+          Chercher un partenaire
+        </button>
+        <button class="btn btn-danger" id="btn-next" onclick="nextPartner()" style="display:none">
+          Suivant
+        </button>
+      </div>
+
+      <!-- Chat -->
+      <div class="chat-container" id="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-bar">
+          <input type="text" id="msg-input" placeholder="Votre message..."
+                 maxlength="500" onkeydown="if(event.key==='Enter')sendMessage()">
+          <button id="btn-send" onclick="sendMessage()">Envoyer</button>
+        </div>
+        <div class="char-count" id="char-count">0 / 500</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
