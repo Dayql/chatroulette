@@ -2,6 +2,16 @@
 
 Application de chat aléatoire en temps réel. Les utilisateurs créent un compte, puis sont mis en relation avec un partenaire aléatoire pour discuter.
 
+## Fonctionnalités principales
+
+- Authentification JWT (inscription, connexion, déconnexion)
+- Matching aléatoire 1v1 avec file d'attente
+- Chat temps réel (Socket.IO)
+- Rooms Socket.IO par paire
+- Indicateur "en train d'écrire"
+- Historique de session (derniers messages de la conversation en cours)
+- Anti-spam sur l'action **Suivant** (limitation côté serveur)
+
 ## Stack technique
 
 - **Backend** : Node.js, Express, Socket.IO, JWT, bcryptjs
@@ -66,6 +76,7 @@ L'application est accessible sur **http://localhost:3000**.
 |--------------------|------------------------------------|
 | `findPartner`      | Rejoindre la file d'attente        |
 | `sendMessage`      | Envoyer un message au partenaire   |
+| `typing`           | Indiquer que l'utilisateur écrit   |
 | `next`             | Passer au partenaire suivant       |
 
 | Serveur → Client       | Description                        |
@@ -73,4 +84,6 @@ L'application est accessible sur **http://localhost:3000**.
 | `waiting`               | En attente d'un partenaire         |
 | `matched`               | Partenaire trouvé                  |
 | `message`               | Message reçu                       |
+| `typing`                | Le partenaire est en train d'écrire |
 | `partnerDisconnected`   | Le partenaire s'est déconnecté     |
+| `error`                 | Erreur métier (ex: rate limit)     |

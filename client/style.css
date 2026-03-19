@@ -208,6 +208,13 @@ body {
   font-style: italic;
   font-size: 13px;
 }
+.typing-indicator {
+  min-height: 20px;
+  margin-bottom: 8px;
+  color: #8ea6c4;
+  font-size: 12px;
+  font-style: italic;
+}
 
 /* Input bar */
 .input-bar {
